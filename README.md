@@ -181,4 +181,8 @@
    
 10. Screenshots / Demos.
 
+    Show what the dashboard looks like : -
+
+    Example : [Dashboard preview] : ( )
+
     
