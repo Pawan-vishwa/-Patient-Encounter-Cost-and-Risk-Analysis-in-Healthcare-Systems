@@ -18,12 +18,12 @@
 
 3. Dataset.
 
-   Encounters,
+   Encounters.csv,
 
-   Patients,
+   Patients.csv,
 
-   Payers,
+   Payers.csv,
 
-   Organizations,
+   Organizations.csv,
 
-   Procedures.
+   Procedures.csv
