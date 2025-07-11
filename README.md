@@ -18,8 +18,8 @@
 
 3. Dataset.
 
-   Encounters
-   Patients
-   Payers
-   Organizations
-   Procedures
+   Encounters.
+   Patients.
+   Payers.
+   Organizations.
+   Procedures.
