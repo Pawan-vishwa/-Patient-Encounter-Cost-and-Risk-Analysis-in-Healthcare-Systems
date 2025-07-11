@@ -130,7 +130,8 @@
                   HAVING COUNT(*) > 1;
 
 
-      WITH DuplicatesCTE AS (
+         WITH DuplicatesCTE AS (
+       
              SELECT 
                     *, 
                  ROW_NUMBER() OVER (PARTITION BY ENCOUNTERCLASS ORDER BY ENCOUNTERCLASS) AS rn
@@ -172,7 +173,7 @@
           SQL Logic :
 
           
-WITH HighCostEncounterCount AS (
+          WITH HighCostEncounterCount AS (
 
           SELECT
           
