@@ -15,3 +15,11 @@
    How do procedure costs change over time, and are there any cost spikes or inefficiencies?
 
    Which regions incur the highest healthcare expenses, and what patterns can be observed geographically?
+
+3. Dataset.
+
+   Encounters
+   Patients
+   Payers
+   Organizations
+   Procedures
