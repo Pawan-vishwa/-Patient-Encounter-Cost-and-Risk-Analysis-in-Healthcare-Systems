@@ -34,38 +34,56 @@
 
    
    ├── README.md
+   
    ├── Project_Report.docx / .pdf
+   
    ├── Data_Dictionary.xlsx
+   
    ├── database_schema.sql
+   
    ├── Healthcare_Cost_Dashboard.pbix  (Power BI) / .twbx (Tableau)
+
 
    
    ├── /data/
+   
    │   └── raw_data.csv
+   
    │   └── cleaned_data.csv
 
    
    ├── /sql/
+   
    │  ├── 01_data_loading.sql
+   
    │  ├── 02_data_cleaning.sql
+   
    │  └── 03_analysis_queries.sql
 
    
    ├── /notebooks/ (Optional for Python/SQL notebooks)
+   
    │  └── data_exploration.ipynb
 
 
    ├── /visualizations/
+   
    │  ├── encounter_cost_distribution.png
+   
    │  ├── high_cost_patients.png
+   
    │  ├── uncovered_costs_analysis.png
+   
    │  ├── procedure_cost_trends.png
+   
    │  └── regional_cost_analysis.png
 
 
    
    └── /documents/
+   
     ├── SQL_Analysis_Results.xlsx
+   
     └── PowerBI_Storyboards.pptx
 
 
