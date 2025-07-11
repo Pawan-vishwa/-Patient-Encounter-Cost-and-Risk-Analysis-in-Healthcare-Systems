@@ -29,3 +29,6 @@
    Procedures.csv .
 
 4. Project Structure.
+5. Tools requuired.
+6. Business and Insights.
+7. Screenshots / Demos.
