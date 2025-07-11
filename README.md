@@ -90,6 +90,18 @@
    
 6. Tools requuired.
 
+    SQL Server Management Studio - Main data cleaning or the sql querry structure are made on the server studio . 
+
+    Power BI Desktop -  Main Data Visualization platform is used for report creation.
+
+    Power Querry - Data transformation  and cleaning layer for reshaping for reshaping and preparing the data.
+
+    DAX (Data Analysis Expression)  - Used for calculated measures, dynamic visuals, and conditional logic.
+
+    Data Modeling - Releationship established among tables (encounters,  organizations, patients, payers, procedures) to enable cross-filtering and aggregation
+
+    File Format - .pbix for development and .png for dassboard previews.
+
    
    
 8. Business Impacts and Insights.
