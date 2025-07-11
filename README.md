@@ -108,30 +108,39 @@
 
          SQL Logic :
 
-                   SELECT 
-    SUM(CASE WHEN TOTAL_CLAIM_COST IS NULL THEN 1 ELSE 0 END) AS Missing_TotalClaimCost,
-    SUM(CASE WHEN PAYER_COVERAGE IS NULL THEN 1 ELSE 0 END) AS Missing_PayerCoverage,
-    SUM(CASE WHEN REASONCODE IS NULL THEN 1 ELSE 0 END) AS Missing_ReasonCode,
-    SUM(CASE WHEN PATIENT IS NULL THEN 1 ELSE 0 END) AS Missing_PatientID
-FROM Encounters;
+                   SELECT
+       
+                      SUM(CASE WHEN TOTAL_CLAIM_COST IS NULL THEN 1 ELSE 0 END) AS Missing_TotalClaimCost,
+
+                      SUM(CASE WHEN PAYER_COVERAGE IS NULL THEN 1 ELSE 0 END) AS Missing_PayerCoverage,
+
+                      SUM(CASE WHEN REASONCODE IS NULL THEN 1 ELSE 0 END) AS Missing_ReasonCode,
+
+                      SUM(CASE WHEN PATIENT IS NULL THEN 1 ELSE 0 END) AS Missing_PatientID
+
+                  FROM Encounters;
 
 
-SELECT ENCOUNTERCLASS, COUNT(*) AS DuplicateCount
-FROM encounters
-GROUP BY ENCOUNTERCLASS
-HAVING COUNT(*) > 1;
+                  SELECT ENCOUNTERCLASS, COUNT(*) AS DuplicateCount
+
+                  FROM encounters
+
+                  GROUP BY ENCOUNTERCLASS
+
+                  HAVING COUNT(*) > 1;
 
 
-WITH DuplicatesCTE AS (
-    SELECT 
-        *, 
-        ROW_NUMBER() OVER (PARTITION BY ENCOUNTERCLASS ORDER BY ENCOUNTERCLASS) AS rn
-    FROM encounters
-)
-DELETE FROM DuplicatesCTE WHERE rn > 1;
+      WITH DuplicatesCTE AS (
+             SELECT 
+                    *, 
+                 ROW_NUMBER() OVER (PARTITION BY ENCOUNTERCLASS ORDER BY ENCOUNTERCLASS) AS rn
+   
+                 FROM encounters
+            )
+                 DELETE FROM DuplicatesCTE WHERE rn > 1;
 
 
-DELETE FROM encounters WHERE id IS NULL OR PATIENT IS NULL;
+                 DELETE FROM encounters WHERE id IS NULL OR PATIENT IS NULL;
       
 
 
@@ -140,14 +149,21 @@ DELETE FROM encounters WHERE id IS NULL OR PATIENT IS NULL;
 
           SQL Logic :
 
-              SELECT 
-    REASONCODE,
-    SUM(TOTAL_CLAIM_COST - PAYER_COVERAGE) AS TotalUncoveredCost,
-    COUNT(*) AS EncounterCount
-FROM encounters
-WHERE TOTAL_CLAIM_COST IS NOT NULL AND PAYER_COVERAGE IS NOT NULL
-GROUP BY REASONCODE
-ORDER BY TotalUncoveredCost DESC;
+              SELECT
+      
+              REASONCODE,
+      
+              SUM(TOTAL_CLAIM_COST - PAYER_COVERAGE) AS TotalUncoveredCost,
+      
+              COUNT(*) AS EncounterCount
+      
+              FROM encounters
+      
+              WHERE TOTAL_CLAIM_COST IS NOT NULL AND PAYER_COVERAGE IS NOT NULL
+
+              GROUP BY REASONCODE
+      
+              ORDER BY TotalUncoveredCost DESC;
 
             
 
@@ -157,22 +173,37 @@ ORDER BY TotalUncoveredCost DESC;
 
           
 WITH HighCostEncounterCount AS (
-    SELECT 
-        PATIENT,
-        YEAR(START) AS EncounterYear,
-        COUNT(*) AS HighCostEncounterCount
-    FROM encounters
-    WHERE TOTAL_CLAIM_COST > 10000
-    GROUP BY PATIENT, YEAR(START)
-)
-SELECT 
+
+          SELECT
+          
+
+             PATIENT,
+             
+             YEAR(START) AS EncounterYear,
+             
+             COUNT(*) AS HighCostEncounterCount
+             
+          FROM encounters
+          
+          WHERE TOTAL_CLAIM_COST > 10000
+          
+          GROUP BY PATIENT, YEAR(START)
+          
+         )
+         
+         SELECT 
     
-     PATIENT,
-     ENCOUNTERCLASS,
-     TOTAL_CLAIM_COST
-FROM encounters
-WHERE TOTAL_CLAIM_COST > 3
-ORDER BY TOTAL_CLAIM_COST DESC, PATIENT;
+           PATIENT,
+           
+           ENCOUNTERCLASS,
+           
+           TOTAL_CLAIM_COST
+           
+         FROM encounters
+         
+         WHERE TOTAL_CLAIM_COST > 3
+         
+         ORDER BY TOTAL_CLAIM_COST DESC, PATIENT;
     
 
 
@@ -181,26 +212,43 @@ ORDER BY TOTAL_CLAIM_COST DESC, PATIENT;
           SQL Logic :
 
           
-WITH Top3Diagnosis AS (
-    SELECT TOP 3 
-        CODE, 
-        COUNT(*) AS DiagnosisCount
-    FROM encounters
-    WHERE CODE IS NOT NULL
-    GROUP BY CODE
-    ORDER BY DiagnosisCount DESC
+                  WITH Top3Diagnosis AS (
+                  
+                                  SELECT TOP 3 
+                                  
+                                      CODE, 
+                             
+                                   COUNT(*) AS DiagnosisCount
+                                   
+                                  FROM encounters
+                                  
+                                  WHERE CODE IS NOT NULL
+                                  
+                                  GROUP BY CODE
+                                  
+                                  ORDER BY DiagnosisCount DESC
 
-)
-SELECT
-    t.CODE,
-    e.PATIENT,
-    e.ENCOUNTERCLASS,
-    e.REASONCODE,
-    e.TOTAL_CLAIM_COST
-FROM encounters e
-JOIN procedures t
-    ON e.CODE = t.CODE
-ORDER BY t.CODE, e.PATIENT;
+                              )
+
+                           SELECT
+                           
+                               t.CODE,
+                               
+                               e.PATIENT,
+                               
+                               e.ENCOUNTERCLASS,
+                               
+                               e.REASONCODE,
+                               
+                               e.TOTAL_CLAIM_COST
+                               
+                           FROM encounters e
+                           
+                           JOIN procedures t
+                           
+                           ON e.CODE = t.CODE
+                           
+                           ORDER BY t.CODE, e.PATIENT;
     
 
 
@@ -209,15 +257,24 @@ ORDER BY t.CODE, e.PATIENT;
           SQL Logic :
 
                    SELECT 
-    CODE,
-    COUNT(*) AS ProcedureCount,
-    SUM(TOTAL_CLAIM_COST) AS TotalClaimCost,
-    SUM(PAYER_COVERAGE) AS TotalPayerContribution,
-    SUM(PAYER_COVERAGE) * 1.0 / NULLIF(SUM(TOTAL_CLAIM_COST), 0) AS PayerContributionRatio
-FROM encounters
-WHERE CODE IS NOT NULL
-GROUP BY CODE
-ORDER BY PayerContributionRatio ASC;
+                   
+                         CODE,
+                         
+                         COUNT(*) AS ProcedureCount,
+                         
+                         SUM(TOTAL_CLAIM_COST) AS TotalClaimCost,
+                         
+                         SUM(PAYER_COVERAGE) AS TotalPayerContribution,
+                         
+                         SUM(PAYER_COVERAGE) * 1.0 / NULLIF(SUM(TOTAL_CLAIM_COST), 0) AS PayerContributionRatio
+                         
+                         FROM encounters
+                         
+                         WHERE CODE IS NOT NULL
+                         
+                         GROUP BY CODE
+                         
+                         ORDER BY PayerContributionRatio ASC;
 
 
       (e) Identifying Patients with Multiple Procedures Across Encounters
@@ -225,25 +282,41 @@ ORDER BY PayerContributionRatio ASC;
           SQL Logic :
 
                 
-WITH PatientDiagnosisProcedures AS (
-    SELECT
-        PATIENT,
-        CODE,
-        COUNT(DISTINCT Id) AS DistinctEncounters,
-        COUNT(DISTINCT CODE) AS DistinctProcedures
-    FROM encounters
-    WHERE REASONCODE IS NOT NULL AND CODE IS NOT NULL
-    GROUP BY PATIENT, CODE
-)
-SELECT
-    PATIENT,
-    REASONCODE,
-    ORGANIZATION,
-    PAYER
+                     WITH PatientDiagnosisProcedures AS (
+                     
+                                              SELECT
+                                              
+                                                  PATIENT,
+                                                  
+                                                  CODE,
+                                                  
+                                                  COUNT(DISTINCT Id) AS DistinctEncounters,
+                                                  
+                                                  COUNT(DISTINCT CODE) AS DistinctProcedures
+                                                  
+                                             FROM encounters
+                                             
+                                             WHERE REASONCODE IS NOT NULL AND CODE IS NOT NULL
+                                             
+                                             GROUP BY PATIENT, CODE
+                                             
+                              )
+                                            SELECT
+                                            
+                                               PATIENT,
+                                               
+                                               REASONCODE,
+                                               
+                                               ORGANIZATION,
+                                               
+                                               PAYER
+                                               
     
-FROM encounters
-WHERE REASONCODE > 1 AND CODE > 1
-ORDER BY PATIENT, CODE;
+                                           FROM encounters
+                                           
+                                           WHERE REASONCODE > 1 AND CODE > 1
+                                           
+                                           ORDER BY PATIENT, CODE;
 
     
 
@@ -252,18 +325,29 @@ ORDER BY PATIENT, CODE;
           SQL Logic :
 
           
-          SELECT 
-    ORGANIZATION,
-    Id,
-    PATIENT,
-    START,
-    STOP,
-    DATEDIFF(HOUR, START, STOP) AS EncounterDurationHours
-FROM Encounters
-WHERE START IS NOT NULL 
-  AND STOP IS NOT NULL 
-  AND DATEDIFF(HOUR, START, STOP) > 24
-ORDER BY ORGANIZATION, EncounterDurationHours DESC;
+                   SELECT 
+                   
+                      ORGANIZATION,
+                      
+                      Id,
+                      
+                      PATIENT,
+                      
+                      START,
+                      
+                      STOP,
+                      
+                      DATEDIFF(HOUR, START, STOP) AS EncounterDurationHours
+                      
+                  FROM Encounters
+                  
+                  WHERE START IS NOT NULL 
+                  
+                 AND STOP IS NOT NULL
+                 
+                 AND DATEDIFF(HOUR, START, STOP) > 24
+                 
+                 ORDER BY ORGANIZATION, EncounterDurationHours DESC;
 
     
 
