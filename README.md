@@ -187,7 +187,7 @@
 
               Systems/blob/main/Patient%20Encounter%20Cost%20and%20Risk%20Analysis%20in%20Healthcare%20Systems.png )
 
-             <img width="1167" height="756" alt="Patient Encounter Cost and Risk Analysis in Healthcare Systems" src="https://github.com/user-attachments/assets/00903927-7722-4bea-b409-02fca3091001" />
+ <img width="1167" height="756" alt="Patient Encounter Cost and Risk Analysis in Healthcare Systems" src="https://github.com/user-attachments/assets/00903927-7722-4bea-b409-02fca3091001" />
 
 
     
