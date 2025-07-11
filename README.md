@@ -183,6 +183,11 @@
 
     Show what the dashboard looks like : -
 
-    Example : [Dashboard preview] : ( )
+    Example : [Dashboard preview] : (https://github.com/Pawan-vishwa/-Patient-Encounter-Cost-and-Risk-Analysis-in-Healthcare-
+
+              Systems/blob/main/Patient%20Encounter%20Cost%20and%20Risk%20Analysis%20in%20Healthcare%20Systems.png )
+
+             <img width="1167" height="756" alt="Patient Encounter Cost and Risk Analysis in Healthcare Systems" src="https://github.com/user-attachments/assets/00903927-7722-4bea-b409-02fca3091001" />
+
 
     
