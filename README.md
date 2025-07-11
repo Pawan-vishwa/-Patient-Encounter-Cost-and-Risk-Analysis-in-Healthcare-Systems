@@ -130,18 +130,20 @@
                   HAVING COUNT(*) > 1;
 
 
-         WITH DuplicatesCTE AS (
+                 WITH DuplicatesCTE AS (
        
-             SELECT 
-                    *, 
-                 ROW_NUMBER() OVER (PARTITION BY ENCOUNTERCLASS ORDER BY ENCOUNTERCLASS) AS rn
+                      SELECT *,
+       
+                          ROW_NUMBER() OVER (PARTITION BY ENCOUNTERCLASS ORDER BY ENCOUNTERCLASS) AS rn
    
-                 FROM encounters
-            )
-                 DELETE FROM DuplicatesCTE WHERE rn > 1;
+                       FROM encounters
+       
+                     )
+       
+                       DELETE FROM DuplicatesCTE WHERE rn > 1;
 
 
-                 DELETE FROM encounters WHERE id IS NULL OR PATIENT IS NULL;
+                       DELETE FROM encounters WHERE id IS NULL OR PATIENT IS NULL;
       
 
 
@@ -173,38 +175,38 @@
           SQL Logic :
 
           
-          WITH HighCostEncounterCount AS (
+                WITH HighCostEncounterCount AS (
 
-          SELECT
+                      SELECT
           
 
-             PATIENT,
+                            PATIENT,
              
-             YEAR(START) AS EncounterYear,
+                            YEAR(START) AS EncounterYear,
              
-             COUNT(*) AS HighCostEncounterCount
+                            COUNT(*) AS HighCostEncounterCount
              
-          FROM encounters
+                      FROM encounters
           
-          WHERE TOTAL_CLAIM_COST > 10000
+                      WHERE TOTAL_CLAIM_COST > 10000
           
-          GROUP BY PATIENT, YEAR(START)
+                      GROUP BY PATIENT, YEAR(START)
           
-         )
+                 )
          
-         SELECT 
+                     SELECT 
     
-           PATIENT,
+                          PATIENT,
            
-           ENCOUNTERCLASS,
+                          ENCOUNTERCLASS,
            
-           TOTAL_CLAIM_COST
+                          TOTAL_CLAIM_COST
            
-         FROM encounters
+                     FROM encounters
          
-         WHERE TOTAL_CLAIM_COST > 3
+                     WHERE TOTAL_CLAIM_COST > 3
          
-         ORDER BY TOTAL_CLAIM_COST DESC, PATIENT;
+                     ORDER BY TOTAL_CLAIM_COST DESC, PATIENT;
     
 
 
